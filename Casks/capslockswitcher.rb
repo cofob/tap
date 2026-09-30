@@ -20,9 +20,9 @@ cask "capslockswitcher" do
   uninstall quit: "com.doasync.CapsLockSwitcher"
 
   caveats do
-    requires_accessibility
     <<~EOS
       CapsLockSwitcher requires macOS 15.2 or later.
+      Grant Accessibility permission in System Settings > Privacy & Security > Accessibility.
       After launching the app, select two input sources in its menu bar menu.
       The upstream release is not notarized; see the tap README for launch instructions.
     EOS
