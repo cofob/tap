@@ -24,7 +24,7 @@ cask "capslockswitcher" do
 
   postflight_steps do
     # Upstream's ad-hoc signed release is not notarized.
-    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "CapsLockSwitcher.app"], base: :appdir
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/CapsLockSwitcher.app"]
   end
 
   uninstall quit: "com.doasync.CapsLockSwitcher"
