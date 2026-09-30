@@ -17,6 +17,16 @@ cask "capslockswitcher" do
 
   app "CapsLockSwitcher.app"
 
+  preflight_steps do
+    # The upstream ZIP does not preserve executable permissions.
+    set_permissions "CapsLockSwitcher.app/Contents/MacOS/CapsLockSwitcher", "0755", recursive: false
+  end
+
+  postflight_steps do
+    # Upstream's ad-hoc signed release is not notarized.
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "CapsLockSwitcher.app"], base: :appdir
+  end
+
   uninstall quit: "com.doasync.CapsLockSwitcher"
 
   caveats do
@@ -24,7 +34,6 @@ cask "capslockswitcher" do
       CapsLockSwitcher requires macOS 15.2 or later.
       Grant Accessibility permission in System Settings > Privacy & Security > Accessibility.
       After launching the app, select two input sources in its menu bar menu.
-      The upstream release is not notarized; see the tap README for launch instructions.
     EOS
   end
 end

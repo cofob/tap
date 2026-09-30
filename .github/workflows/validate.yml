@@ -20,7 +20,21 @@ jobs:
       - name: Check style
         run: brew style Casks/capslockswitcher.rb
       - name: Audit cask
-        # Upstream distributes an app that is not notarized.
-        run: brew audit --cask --online --except=signing cofob/tap/capslockswitcher
+        # Signing is ad-hoc; Rosetta audit runs before the permission repair.
+        run: brew audit --cask --online --except=signing,rosetta cofob/tap/capslockswitcher
       - name: Verify download and checksum
         run: brew fetch --cask cofob/tap/capslockswitcher
+      - name: Verify installation without launching
+        run: |
+          appdir="$RUNNER_TEMP/cask-apps"
+          mkdir -p "$appdir"
+          brew install --cask --appdir="$appdir" cofob/tap/capslockswitcher
+          app="$appdir/CapsLockSwitcher.app"
+          test -x "$app/Contents/MacOS/CapsLockSwitcher"
+          lipo -verify_arch arm64 x86_64 "$app/Contents/MacOS/CapsLockSwitcher"
+          if xattr -r "$app" | grep -q com.apple.quarantine; then
+            echo "Quarantine marker remains after installation"
+            exit 1
+          fi
+          brew uninstall --cask cofob/tap/capslockswitcher
+          test ! -e "$app"
