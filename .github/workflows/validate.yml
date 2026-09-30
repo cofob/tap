@@ -1,0 +1,26 @@
+name: Validate casks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: macos-15
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Register local tap
+        run: brew tap cofob/tap "$GITHUB_WORKSPACE"
+      - name: Check style
+        run: brew style Casks/capslockswitcher.rb
+      - name: Audit cask
+        # Upstream distributes an app that is not notarized.
+        run: brew audit --cask --online --except=signing cofob/tap/capslockswitcher
+      - name: Verify download and checksum
+        run: brew fetch --cask cofob/tap/capslockswitcher
