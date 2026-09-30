@@ -13,7 +13,7 @@ cask "capslockswitcher" do
     strategy :github_latest
   end
 
-  depends_on macos: ">= 15.2"
+  depends_on macos: :sequoia
 
   app "CapsLockSwitcher.app"
 
