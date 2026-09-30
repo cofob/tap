@@ -20,8 +20,8 @@ jobs:
       - name: Check style
         run: brew style Casks/capslockswitcher.rb
       - name: Audit cask
-        # Signing is ad-hoc; Rosetta audit runs before the permission repair.
-        run: brew audit --cask --online --except=signing,rosetta cofob/tap/capslockswitcher
+        # The fork is ad-hoc signed, not notarized.
+        run: brew audit --cask --online --except=signing cofob/tap/capslockswitcher
       - name: Verify download and checksum
         run: brew fetch --cask cofob/tap/capslockswitcher
       - name: Verify installation without launching

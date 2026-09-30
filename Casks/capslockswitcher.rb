@@ -1,15 +1,15 @@
 cask "capslockswitcher" do
-  version "1.2"
-  sha256 "7fd789fe96feaef9a0b8ca0454effd92d7775506e18ffd10bc7248aac869ea30"
+  version "1.2.1"
+  sha256 "26d7260edfc391e04c9b44e0627cb28d3ec520e2f419fc107e39974b2b55aa24"
 
-  url "https://github.com/doasync/CapsLockSwitcher/releases/download/#{version}-app/CapsLockSwitcher.app.zip"
+  url "https://github.com/cofob/CapsLockSwitcher/releases/download/v#{version}/CapsLockSwitcher.app.zip"
   name "CapsLockSwitcher"
   desc "Switch between two keyboard layouts using the Caps Lock key"
-  homepage "https://github.com/doasync/CapsLockSwitcher"
+  homepage "https://github.com/cofob/CapsLockSwitcher"
 
   livecheck do
     url :url
-    regex(/^(\d+(?:\.\d+)+)-app$/i)
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
     strategy :github_latest
   end
 
@@ -17,13 +17,8 @@ cask "capslockswitcher" do
 
   app "CapsLockSwitcher.app"
 
-  preflight_steps do
-    # The upstream ZIP does not preserve executable permissions.
-    set_permissions "CapsLockSwitcher.app/Contents/MacOS/CapsLockSwitcher", "0755", recursive: false
-  end
-
   postflight_steps do
-    # Upstream's ad-hoc signed release is not notarized.
+    # The fork's ad-hoc signed release is not notarized.
     run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/CapsLockSwitcher.app"]
   end
 
@@ -32,7 +27,7 @@ cask "capslockswitcher" do
   caveats do
     <<~EOS
       CapsLockSwitcher requires macOS 15.2 or later.
-      Grant Accessibility permission in System Settings > Privacy & Security > Accessibility.
+      Follow the native permission prompt and enable CapsLockSwitcher in System Settings.
       After launching the app, select two input sources in its menu bar menu.
     EOS
   end
