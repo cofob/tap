@@ -4,7 +4,7 @@ A personal Homebrew tap for macOS applications.
 
 ## Install CapsLockSwitcher
 
-[CapsLockSwitcher](https://github.com/cofob/CapsLockSwitcher) switches between two keyboard layouts using the Caps Lock key. This tap ships cofob's fork of [doasync/CapsLockSwitcher](https://github.com/doasync/CapsLockSwitcher), with simpler permission setup. Version 1.2.1 supports Intel and Apple Silicon and requires **macOS 15.2 or later**.
+[CapsLockSwitcher](https://github.com/cofob/CapsLockSwitcher) switches between two keyboard layouts using the Caps Lock key. This tap ships cofob's fork of [doasync/CapsLockSwitcher](https://github.com/doasync/CapsLockSwitcher), with simpler permission setup. Version 1.2.2 supports Intel and Apple Silicon and requires **macOS 15.2 or later**.
 
 ```sh
 brew tap cofob/tap https://github.com/cofob/tap
@@ -16,6 +16,8 @@ The explicit repository URL is necessary because this repository is named `tap`,
 Open CapsLockSwitcher from Applications. The native macOS permission prompt requests registration in System Settings automatically. Enable CapsLockSwitcher in **Privacy & Security → Accessibility** (called **Device Control and Data Access** on some newer macOS versions), then select exactly two input sources in its menu bar menu. Permission changes are detected automatically. The app also offers an optional launch-at-login setting.
 
 The fork runs without App Sandbox so it can request Accessibility access and handle Caps Lock system-wide. Accessibility access still requires your approval. The release is ad-hoc signed and not notarized; the cask automatically removes its download quarantine marker while retaining other extended attributes, so no manual terminal command is needed before launching.
+
+With switching active, **Caps Lock** switches layouts and **Command+Caps Lock** turns normal Caps Lock on or off. Either Command key works.
 
 ### Upgrade or uninstall
 

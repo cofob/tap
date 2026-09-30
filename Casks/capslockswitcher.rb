@@ -1,6 +1,6 @@
 cask "capslockswitcher" do
-  version "1.2.1"
-  sha256 "26d7260edfc391e04c9b44e0627cb28d3ec520e2f419fc107e39974b2b55aa24"
+  version "1.2.2"
+  sha256 "505eea5bb3163621377dfccab504276aa18e0aad52ffce00388364ed02c74f83"
 
   url "https://github.com/cofob/CapsLockSwitcher/releases/download/v#{version}/CapsLockSwitcher.app.zip"
   name "CapsLockSwitcher"
@@ -29,6 +29,7 @@ cask "capslockswitcher" do
       CapsLockSwitcher requires macOS 15.2 or later.
       Follow the native permission prompt and enable CapsLockSwitcher in System Settings.
       After launching the app, select two input sources in its menu bar menu.
+      Caps Lock switches layouts; Command+Caps Lock turns normal Caps Lock on or off.
     EOS
   end
 end
