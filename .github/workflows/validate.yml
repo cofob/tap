@@ -31,7 +31,9 @@ jobs:
           brew install --cask --appdir="$appdir" cofob/tap/capslockswitcher
           app="$appdir/CapsLockSwitcher.app"
           test -x "$app/Contents/MacOS/CapsLockSwitcher"
-          lipo -verify_arch arm64 x86_64 "$app/Contents/MacOS/CapsLockSwitcher"
+          lipo "$app/Contents/MacOS/CapsLockSwitcher" -verify_arch arm64
+          lipo "$app/Contents/MacOS/CapsLockSwitcher" -verify_arch x86_64
+          codesign --verify "$app"
           if xattr -r "$app" | grep -q com.apple.quarantine; then
             echo "Quarantine marker remains after installation"
             exit 1
